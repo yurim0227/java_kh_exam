@@ -2,6 +2,7 @@
 *.class
 abc.txt
 *.properties
+bin/
 
 # Log file
 *.log
