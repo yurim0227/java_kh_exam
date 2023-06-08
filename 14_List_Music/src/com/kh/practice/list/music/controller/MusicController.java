@@ -1,9 +1,15 @@
 package com.kh.practice.list.music.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.kh.practice.list.music.model.compare.AscTitle;
 import com.kh.practice.list.music.model.vo.Music;
 
 public class MusicController {
@@ -138,13 +144,56 @@ public class MusicController {
 		return result;
 	}
 	public int ascTitle2() {
-		int result = 0;
-		Collections.sort(list);
+		int result = 1;
+//		ArrayList arrlist =  new ArrayList<Music>();
+//		arrlist.add(new Music("a","vb"));
+//		list.removeAll(arrlist);
+		// void java.util.Collections.sort(List<Music> list, Comparator<> super Music> c)
+		try {
+			Collections.sort(list, new AscTitle());
+		}catch(Exception e) {
+			e.printStackTrace();
+			result = 0;
+		}
 		return result;
 	}
 	public int descSinger2() {
-		int result = 0;
-		Collections.sort(list);
+		int result = 1;
+		try {
+			Collections.sort(list);
+		}catch(Exception e) {
+			e.printStackTrace();
+			result = 0;
+		}
+		return result;
+	}
+	
+	public int saveFile(String filePath) {
+		int result = 0;	// 0 : 저장실패, 1: 저장성공
+		
+		//filePath에 list의 Music 객체들을 저장함.
+		FileOutputStream fos = null;
+		ObjectOutputStream oos = null;
+		BufferedOutputStream bos = null;
+		try {
+			fos = new FileOutputStream(filePath);
+			oos = new ObjectOutputStream(fos);
+			bos = new BufferedOutputStream(oos);
+			
+		} catch(FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(fos!=null) bos.close();
+				if(fos!=null) oos.close();
+				if(fos!=null) fos.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		return result;
 	}
 }
