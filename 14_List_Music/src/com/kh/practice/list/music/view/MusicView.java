@@ -237,7 +237,7 @@ public class MusicView {
 		String fileName = sc.nextLine();
 		
 		int result = mc.saveFile(fileName);
-		if(result > 0) {
+		if(result>0) {
 			System.out.println("저장 성공");
 		}else {
 			System.out.println("저장 실패");
@@ -249,7 +249,7 @@ public class MusicView {
 		String fileName = sc.nextLine();
 		
 		int result = mc.loadFile(fileName);
-		if(result > 0) {
+		if(result>0) {
 			System.out.println("로딩 성공");
 		}else {
 			System.out.println("로딩 실패");
