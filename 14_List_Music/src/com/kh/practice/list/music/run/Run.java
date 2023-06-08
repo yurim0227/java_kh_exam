@@ -195,8 +195,14 @@ public class Run {
 //		9. 종료
 //		메뉴 번호 입력 : 9
 //		프로그램 종료
+		String a = "김가";
+		String b = "김나";
+//		int  result = a.compareTo(b)*-1;
+//		System.out.println(result);
+		int result = a.compareTo(b);
+		System.out.println(result);
+		
 		new MusicView().mainMenu();
-
 	}
 
 }

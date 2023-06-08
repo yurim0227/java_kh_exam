@@ -1,6 +1,7 @@
 package com.kh.practice.list.music.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.kh.practice.list.music.model.vo.Music;
@@ -52,8 +53,8 @@ public class MusicController {
 	// 곡 명으로 객체 검색, 객체가 있으면 객체 정보 리턴, 없으면 null 리턴
 		Music result = null;
 		for(Music vo : list) {
-			if( vo.getTitle().equals(title)) {
-				result = vo;
+			if( vo.getTitle().equals(title)) {	// title이 같은 것을 찾아
+				result = vo;	// 찾은 Music 객체vo를 return 하면 됨.
 				break;
 			}
 		}
@@ -61,24 +62,89 @@ public class MusicController {
 	}
 	public Music removeMusic(String title) {
 	// 곡 명으로 객체 검색, 객체가 있으면 객체 정보 삭제, 없으면 null 리턴
-		//TODO
-		return null;
+		Music result = null;
+		for(Music vo : list) {
+			if( vo.getTitle().equals(title)) {	// title이 같은 것을 찾아
+				list.remove(vo);
+				result = vo;	// 찾은 Music 객체vo를 return 하면 됨.
+				break;
+			}
+		}
+		return result;
 	}
 	public Music setMusic(String title, Music music) {
 	// 곡 명으로 객체 검색, 객체가 있으면 객체 정보 수정, 없으면 null 리턴
-		//TODO
-		return null;
+		Music result = null;
+		for(int i=0; i<list.size(); i++) {
+			if(list.get(i).getTitle().equals(title)) {
+				result = list.get(i);
+				list.set(i, music);
+				break;
+			}
+		}
+//		for(Music vo : list) {
+//			if( vo.getTitle().equals(title)) {	// title이 같은 것을 찾아
+//				result = vo;	// 찾은 Music 객체vo를 return 하면 됨.
+//				// 불가 vo = music;	// vo는 for문의 새로운 지역변수로 list와는 무관한 공간임
+//				int findIdx = list.indexOf(vo);
+//				list.set(findIdx, music);
+//				break;
+//			}
+//		}
+		return result;
 	}
 	public int ascTitle() {
 	// 리스트 곡 명 오름차순 정렬, 제목이 같으면 가수 명으로 오름차순 정렬, 1 리턴
 		int result = 0;
-		//TODO
+		try {
+			for(int i = 0; i < list.size() - 1; i++) {
+				for(int j = 0; j <  list.size() - 1 - i; j++) {
+					if(list.get(j).getTitle().compareTo(list.get(j+1).getTitle()) > 0) {	// 오름차순
+						// SWAP
+						Music tmp = list.get(j);
+						list.set(j, list.get(j+1));
+						list.set(j+1, tmp);
+					}
+				}
+			}
+			result = 1;
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 		return result;
 	}
 	public int descSinger() {
 	// 리스트 가수 명 내림차순 정렬, 1 리턴
+		// 착각하지 말자 list 에서 singer는 없다. list의 1개 객체에서 singer가 있다.
+		//list.get(0).getSinger();
 		int result = 0;
-		//TODO
+		try {
+			for(int i = 0; i < list.size() - 1; i++) {
+				for(int j = 0; j <  list.size() - 1 - i; j++) {
+					if(list.get(j).getSinger().compareTo(list.get(j+1).getSinger()) < 0) {	// 내림차순
+						// 정렬기준은 list의 Music 형태의 객체 중 singer 값으로 비교함.
+						// SWAP // list에 있는 Music형태의 객체를 swap
+						Music tmp = list.get(j);
+						list.set(j, list.get(j+1));
+						list.set(j+1, tmp);
+						result = 1;
+					}
+				}
+			}
+			result = 1;
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	public int ascTitle2() {
+		int result = 0;
+		Collections.sort(list);
+		return result;
+	}
+	public int descSinger2() {
+		int result = 0;
+		Collections.sort(list);
 		return result;
 	}
 }
